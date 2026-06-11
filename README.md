@@ -117,6 +117,7 @@ Open <http://localhost:3000>, click **Settings**, and fill in:
 | ---------------- | ------------------------- |
 | Deployment URL   | `http://127.0.0.1:2024`   |
 | Assistant ID     | `travel_planner`          |
+| User ID          | `(e.g. alice)`          |
 | LangSmith API key | *(optional)*             |
 
 Send a prompt such as the demo query above. As the agent runs you will see:
