@@ -29,9 +29,14 @@ pip-wheel-metadata/
 .coverage
 .coverage.*
 htmlcov/
+Demo*
+DEMO_SCRIPT*
+INSTRUCTOR*
+tests/
 
 # Notebooks
 .ipynb_checkpoints/
+notebooks/
 
 # LangGraph runtime artifacts
 .langgraph_api/

@@ -370,24 +370,68 @@ user_id: alice
 request: 这次京都行程和我们之前做的东京方案相比，有哪些差异？
 ```
 
-#### Optional bonus - semantic cache
+#### Semantic cache
 
-Create a third thread and resend Act 1 / Question 1 exactly.
+Create a third thread (for example, `thread-alice-003`) and run the following
+three calls in order.
 
-Expected: materially faster response due to semantic cache hit.
+Expected pattern:
 
-English prompt:
+- Call 1: `MISS` (LLM response is generated and cached)
+- Wait about 2-5 seconds for Atlas vector indexing
+- Call 2: `HIT` (same request, much faster)
+- Call 3: `HIT` (paraphrase request, still matches semantically)
+
+Reference timings (example):
+
+- Call 1: ~3.45s (MISS)
+- Call 2: ~0.03s (exact-hit, ~115x faster)
+- Call 3: ~0.41s (paraphrase-hit)
+
+1) Cold call (EN)
 
 ```text
 user_id: alice
-request: I'd like to plan a 5-day trip to Tokyo for two people in May 2026. We're both vegetarian and flying from San Francisco. Total budget around $4,000. We love culture, food markets, and a bit of art. Please suggest boutique or ryokan-style hotels.
+request: Best time to go to Osaka
 ```
 
-中文提示词：
+1) 首次请求（中文）
 
 ```text
 user_id: alice
-request: 我想规划一次 2026 年 5 月去东京的 5 天双人旅行。我们两人都是素食者，从旧金山出发。总预算大约 4000 美元。我们喜欢文化体验、美食市场和一些艺术活动。请推荐精品酒店或日式旅馆（ryokan）风格的住宿。
+request: 去大阪最佳的時間
+```
+
+2) Repeat the same request (expect cache HIT)
+
+```text
+user_id: alice
+request: Best time to go to Osaka
+```
+
+```text
+user_id: alice
+request: 去大阪最佳的時間
+```
+
+3) Rephrase the request (expect semantic HIT)
+
+```text
+user_id: alice
+request: When is the best season to go to Osaka?
+```
+
+```text
+user_id: alice
+request: 什麼季節最適合去大阪
+```
+
+Check the `langgraph dev` console for cache evidence. You should see lines like:
+
+```text
+SemanticCache MISS ... text='Best time to go to Osaka'
+SemanticCache HIT  ... score=1.0000 ... text='去大阪最佳的時間'
+SemanticCache HIT  ... score=0.95xx ... text='什麼季節最適合去大阪'
 ```
 
 ### 10.6 Suggested facilitation sequence
