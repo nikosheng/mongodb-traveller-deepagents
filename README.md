@@ -53,7 +53,7 @@ This is **idempotent** — safe to re-run. Vector indexes can take 1–2 minutes
 ## 4. Run the demo (UI path)
 
 Start the LangGraph server and the UI as described in Section 5, then follow
-the full workshop flow (with copy/paste prompts) in Section 10.
+the full workshop flow (with copy/paste prompts) in Section 9.
 
 If you need a clean reset before a workshop run:
 
@@ -137,21 +137,7 @@ Send a prompt such as the demo query above. As the agent runs you will see:
 Note: in UI mode with `langgraph dev`, conversation threads are in-memory and
 reset when the dev server restarts.
 
-## 6. Walkthrough Notebook
-
-```bash
-uv sync --extra notebook
-jupyter notebook notebooks/travel_planner_walkthrough.ipynb
-```
-
-The notebook walks through:
-1. Setup & Atlas bootstrap
-2. Subagent delegation (visualizing the `task`-tool tree)
-3. Persistence via `MongoDBSaver` (resume a session)
-4. Shared memory via `MongoDBStore` (semantic recall of preferences)
-5. Semantic cache effect on latency / token usage
-
-## 7. Architecture
+## 6. Architecture
 
 ```
                  ┌──────────────────────────────────────────────────┐
@@ -172,11 +158,11 @@ researcher       researcher  researcher  planner    recommender  compiler
             └──────────────────────────────────────────────────────────┘
 ```
 
-## 8. File layout
+## 7. File layout
 
 See the repository tree — every module is documented inline with what MongoDB feature it demonstrates.
 
-## 9. Operational notes
+## 8. Operational notes
 
 ### Atlas Vector Search quota
 M0 / M2 / M5 clusters allow at most **3 vector search indexes per cluster**. The demo creates exactly 3 (`agent_store`, `semantic_cache`, `destinations_kb`). If the bootstrap fails with `The maximum number of FTS indexes has been reached`, list and drop unused ones:
@@ -203,12 +189,12 @@ To minimise embedding calls, subagents do **not** hold the memory tools. The orc
 
 This is the recommended deepagents pattern: keep subagent tool-sets minimal and let the orchestrator do the cross-cutting state work.
 
-## 10. Workshop runbook (full demo flow)
+## 9. Workshop runbook (full demo flow)
 
 This section consolidates the full live-demo script so you can run the workshop
 end to end from one file.
 
-### 10.1 One-time setup
+### 9.1 One-time setup
 
 ```bash
 cp .env.example .env
@@ -224,7 +210,7 @@ Populate `.env` with:
 - `AZURE_OPENAI_DEPLOYMENT`
 - `VOYAGE_API_KEY`
 
-### 10.2 Bootstrap Atlas
+### 9.2 Bootstrap Atlas
 
 ```bash
 uv run python scripts/bootstrap_atlas.py
@@ -235,7 +221,7 @@ Notes:
 - Safe to rerun (idempotent)
 - Vector indexes can take 1-3 minutes to become queryable
 
-### 10.3 Launch LangGraph + UI
+### 9.3 Launch LangGraph + UI
 
 Open two terminals.
 
@@ -262,7 +248,7 @@ Then open `http://localhost:3000` and set:
 - Assistant ID: `travel_planner`
 - LangSmith API key: optional
 
-### 10.4 User identity and thread strategy (UI)
+### 9.4 User identity and thread strategy (UI)
 
 Use this message format in Studio/UI:
 
@@ -276,7 +262,7 @@ Recommended thread IDs for the demo:
 - `thread-alice-001` for Act 1 and Act 2
 - `thread-alice-002` for Act 3 (new session, cross-thread memory)
 
-### 10.5 Full demo flow (EN + 中文)
+### 9.5 Full demo flow (EN + 中文)
 
 #### Act 1 - Cold start
 
@@ -434,7 +420,7 @@ SemanticCache HIT  ... score=1.0000 ... text='去大阪最佳的時間'
 SemanticCache HIT  ... score=0.95xx ... text='什麼季節最適合去大阪'
 ```
 
-### 10.6 Suggested facilitation sequence
+### 9.6 Suggested facilitation sequence
 
 1. Validate services are up (`langgraph dev`, UI reachable, Atlas reachable)
 2. Run Act 1 in `thread-alice-001`
@@ -442,7 +428,7 @@ SemanticCache HIT  ... score=0.95xx ... text='什麼季節最適合去大阪'
 4. Start `thread-alice-002` and run Act 3
 5. Optionally show cache speedup with exact prompt replay
 
-### 10.7 Verification and reset
+### 9.7 Verification and reset
 
 Reset and reseed if needed:
 
@@ -451,7 +437,7 @@ uv run python scripts/reset_demo.py
 uv run python scripts/bootstrap_atlas.py
 ```
 
-### 10.8 Common troubleshooting
+### 9.8 Common troubleshooting
 
 - Empty memory in Act 3: rerun Act 1/2 and confirm preference save calls complete
 - Startup/auth errors: re-check `.env` values for MongoDB, Azure OpenAI, Voyage
