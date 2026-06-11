@@ -1,0 +1,10 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "travel_planner": "./src/deepagents_mongodb/graph.py:agent"
+  },
+  "env": ".env",
+  "store": {
+    "path": "./src/deepagents_mongodb/graph_store.py:create_mongo_store"
+  }
+}
