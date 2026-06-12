@@ -110,20 +110,15 @@ in, so recall / preference tools and cache hits all demo against Atlas.
 
 ### Terminal 2 — start the UI
 
-Either use the bundled launcher:
+Use the customized UI that is already in this repository:
 
 ```bash
-./scripts/run_ui.sh
+cd ui
+yarn install
+yarn dev
 ```
 
-…which clones `deep-agents-ui` into `./ui/` (gitignored), runs
-`yarn install`, and starts `yarn dev` on <http://localhost:3000>. Or do it
-manually:
-
-```bash
-git clone https://github.com/langchain-ai/deep-agents-ui
-cd deep-agents-ui && yarn install && yarn dev
-```
+This starts the local customized UI on <http://localhost:3000>.
 
 ### Connect the UI to the agent
 

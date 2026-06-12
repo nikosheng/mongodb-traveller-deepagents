@@ -42,9 +42,6 @@ notebooks/
 .langgraph_api/
 .langgraph-data/
 
-# deep-agents-ui clone created by scripts/run_ui.sh
-/ui/
-
 # Node/tooling caches (if UI or JS tooling is used in-place)
 node_modules/
 .next/
