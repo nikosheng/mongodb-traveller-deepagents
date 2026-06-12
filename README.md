@@ -204,7 +204,6 @@ end to end from one file.
 
 ```bash
 cp .env.example .env
-uv sync --extra ui
 ```
 
 Populate `.env` with:
@@ -264,11 +263,6 @@ Use this message format in Studio/UI:
 user_id: alice
 request: <your prompt>
 ```
-
-Recommended thread IDs for the demo:
-
-- `thread-alice-001` for Act 1 and Act 2
-- `thread-alice-002` for Act 3 (new session, cross-thread memory)
 
 ### 9.5 Full demo flow (EN + 中文)
 
