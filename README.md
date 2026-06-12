@@ -251,7 +251,9 @@ Expected endpoints:
 Terminal 2:
 
 ```bash
-./scripts/run_ui.sh
+cd ui
+yarn install
+yarn dev
 ```
 
 Then open `http://localhost:3000` and set:
