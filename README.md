@@ -85,12 +85,6 @@ For an interactive chat experience over the same agent, plug in the official
 front-end that speaks to any LangGraph deployment. We expose the travel
 planner via `langgraph dev` so the UI can drive it without code changes.
 
-### One-time setup
-
-```bash
-uv sync --extra ui          # installs langgraph-cli[inmem]
-```
-
 You also need **Node 18+** and **yarn** on `PATH` for the UI side.
 
 ### Terminal 1 — start the LangGraph server

@@ -27,6 +27,7 @@ dependencies = [
 notebook = ["jupyter>=1.0.0", "ipykernel>=6.29.0"]
 dev = ["pytest>=8.0.0"]
 ui = ["langgraph-cli[inmem]>=0.2.0"]
+langgraph = ["langgraph-cli[inmem]>=0.2.0"]
 
 [project.scripts]
 deepagents-mongodb = "deepagents_mongodb.cli:app"
