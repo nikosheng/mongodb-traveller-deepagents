@@ -31,6 +31,22 @@ The travel planner uses **6 specialized subagents** orchestrated by a deepagent:
 - Azure OpenAI deployment for `gpt-5.4-mini` (or any chat model — see `src/deepagents_mongodb/llm.py`)
 - Voyage AI API key (for `voyage-4` embeddings, 1024 dims)
 
+If you do not have `uv` installed yet:
+
+```bash
+# macOS / Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Windows (PowerShell)
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Verify installation:
+
+```bash
+uv --version
+```
+
 ## 2. Install
 
 ```bash
